@@ -15,7 +15,8 @@ namespace AspNetCoreTodo.Controllers
             //	Get	to-do	items	from	database
             //	Put	items	into	a	model
             //	Render	view	using	the	model
-             return View();	
+            TodoViewModel vm = new TodoViewModel();
+             return View(vm);	
 
         }
     }
