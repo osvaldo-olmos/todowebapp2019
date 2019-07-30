@@ -11,7 +11,7 @@ namespace AspNetCoreTodo.Controllers
 {
     public class TodoController : Controller
     {
-        private	readonly ITodoItemService _todoItemService;
+        private readonly ITodoItemService _todoItemService;
 
         public TodoController(ITodoItemService todoItemService)
         {
@@ -21,15 +21,31 @@ namespace AspNetCoreTodo.Controllers
         public async Task<IActionResult> Index()
         {
             //	Get	to-do	items	from	database
-            var	items	=	await _todoItemService.GetIncompleteItemsAsync();
+            var items = await _todoItemService.GetIncompleteItemsAsync();
             //	Put	items	into	a	model
-            TodoViewModel viewModel =new TodoViewModel()
+            TodoViewModel viewModel = new TodoViewModel()
             {
-                Items=items
+                Items = items
             };
             //	Render	view	using	the	model
-             return View(viewModel);	
+            return View(viewModel);
 
         }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(TodoItem newItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            var successful = await _todoItemService.AddItemAsync(newItem);
+            if (!successful)
+            {
+                return BadRequest("Could not add item.");
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }
