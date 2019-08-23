@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace AspNetCoreTodo.UnitTest
+namespace AspNetCoreTodo.IntegrationTests
 {
     public class UnitTest1
     {
