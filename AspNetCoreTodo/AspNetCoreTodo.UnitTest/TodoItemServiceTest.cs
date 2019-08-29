@@ -13,7 +13,7 @@ namespace AspNetCoreTodo.UnitTest
         [Fact]
         public async Task AddNewItemAsIncompleteWithDueDate()
         {
-            var options = new DBContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(database : "Test_AddNewItem").Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("Test_AddNewItem").Options;
 
             using(var context = new ApplicationDbContext(options)){
                 var service = new TodoItemService(context);
